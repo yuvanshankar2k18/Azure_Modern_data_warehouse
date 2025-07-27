@@ -1,91 +1,93 @@
-# Azure End-to-End Data Engineering Real-Time Project
-This project is a data engineering pipeline solution to a made-up business problem, created to aid in my learning and understanding of data pipelining.
+💻 Azure End-to-End Data Engineering Real-Time Project
 
-## Project Overview
+This project is a complete data engineering pipeline solution designed to solve a practical business problem while enhancing hands-on learning with Azure services. 🚀
 
-This project addresses a critical business need by building a comprehensive data pipeline on Azure. The goal is to extract customer and sales data from an on-premises SQL database, transform it in the cloud, and generate actionable insights through a Power BI dashboard. The dashboard will highlight key performance indicators (KPIs) related to gender distribution and product category sales, allowing stakeholders to filter and analyze data by date, product category, and gender.
+📌 Project Overview
+![Project workflow](https://github.com/user-attachments/assets/c48058e7-d469-4878-bbe1-35a2d8dcc8a6)
 
-## Business Requirements
+This project builds a scalable data pipeline on Azure to extract, transform, and visualize customer and sales data. The goal is to generate actionable insights via a Power BI dashboard 📊 that highlights key performance indicators (KPIs) like gender distribution and product category sales.
 
-The business has identified a gap in understanding customer demographics—specifically gender distribution—and how it influences product purchases. The key requirements include:
+📈 Business Requirements
+The business needs clarity on how customer demographics (especially 👩‍🦰 gender) affect product purchases. Key deliverables:
+1. 📊 Sales by Gender and Product Category
+Dashboard showing total products sold, revenue, and customer gender split.
+2. 🧮 Data Filtering
+Filters for product category, gender, and date.
+3. 🧑‍💻 User-Friendly Interface
+Easy querying and exploration for stakeholders.
 
-1. **Sales by Gender and Product Category**: A dashboard showing the total products sold, total sales revenue, and a gender split among customers.
-2. **Data Filtering**: Ability to filter the data by product category, gender, and date.
-3. **User-Friendly Interface**: Stakeholders should have access to an easy-to-use interface for making queries.
+⚙ Solution Overview
+To meet business needs, we designed the solution with these components:
+1. Data Ingestion 🛠
+Extract data from on-prem SQL Server 🗃
+Load into Azure Data Lake Storage  via
+Azure Data Factory 
+2. Data Transformation 🔄
+Use Azure Databricks  to clean and aggregate data
+Structure it into:
+🟤 Bronze (raw)
+⚪ Silver (cleaned)
+🟡 Gold (aggregated)
+3. Data Loading & Reporting 📥📈
+Load gold data into Azure Synapse Analytics 
+Create dashboards using Power BI 
+4. Automation ⏱
+Schedule daily runs using ADF triggers
+Keep dashboards always updated 🔄
 
-## Solution Overview
+🧰 Technology Stack
+Tool/Service	Purpose
+ Azure Data Factory	Data ingestion & orchestration
+ Azure Data Lake Storage	Raw & transformed data storage
+ Azure Databricks	Data transformation & ETL
+ Azure Synapse Analytics	Data warehouse & reporting layer
+ Power BI	Dashboards & data visualization
+🔐 Azure Key Vault	Manage credentials/secrets
+🗃 SQL Server (On-Prem)	Source database
 
-To meet these requirements, the solution is broken down into the following components:
+⚒ Setup Instructions
+🔑 Prerequisites
+Azure account with sufficient credits 💳
+Access to SQL Server (on-prem)
 
-1. **Data Ingestion**: 
-    - Extract customer and sales data from an on-premises SQL database.
-    - Load the data into Azure Data Lake Storage (ADLS) using Azure Data Factory (ADF).
+🔷 Step 1: Azure Environment Setup
+1. 🔧 Create Resource Group in Azure
+2. 🚀 Provision resources:
+Azure Data Factory
+Azure Data Lake with containers: bronze, silver, gold
+Azure Databricks & Synapse
+Azure Key Vault
 
-2. **Data Transformation**:
-    - Use Azure Databricks to clean and transform the data.
-    - Organize the data into Bronze, Silver, and Gold layers for raw, cleansed, and aggregated data respectively.
+🛠 Step 2: Data Ingestion
+1. ⚙ Install SQL Server & SSMS
+2. ♻ Ingest tables from AdventureWorks DB using ADF into the bronze layer
 
-3. **Data Loading and Reporting**:
-    - Load the transformed data into Azure Synapse Analytics.
-    - Build a Power BI dashboard to visualize the data, allowing stakeholders to explore sales and demographic insights.
+🔁 Step 3: Data Transformation
+1. 📂 Mount ADLS in Databricks
+2. 🧹 Clean, transform, and move data through:
+bronze ➡ silver ➡ gold
 
-4. **Automation**:
-    - Schedule the pipeline to run daily, ensuring that the data and reports are always up-to-date.
+📦 Step 4: Data Loading & Reporting
+1. 🔄 Load gold data into Synapse SQL pool
+2. 📊 Build Power BI report with filters:
+Product Category
+Gender
+Date
 
-## Technology Stack
+⏰ Step 5: Automation & Monitoring
+1. 🗓 Schedule pipelines with ADF
+2. 📈 Use built-in monitoring for failures, retries, and alerting
 
-- **Azure Data Factory (ADF)**: For orchestrating data movement and transformation.
-- **Azure Data Lake Storage (ADLS)**: For storing raw and processed data.
-- **Azure Databricks**: For data transformation and processing.
-- **Azure Synapse Analytics**: For data warehousing and SQL-based analytics.
-- **Power BI**: For data visualization and reporting.
-- **Azure Key Vault**: For securely managing credentials and secrets.
-- **SQL Server (On-Premises)**: Source of customer and sales data.
+🔐 Step 6: Security & Governance
+1. 👥 Setup RBAC with Azure Active Directory
+2. 🔑 Store credentials & secrets in Azure Key Vault
 
-## Setup Instructions
+✅ Step 7: End-to-End Testing
+1. 🔃 Insert new records into SQL DB
+2. 📈 Ensure the pipeline updates the Power BI dashboard automatically
 
-### Prerequisites
+🏁 Conclusion
+This Azure-based pipeline gives a real-time, automated solution to uncover insights from sales and customer data. Stakeholders get dynamic reports, filtered by relevant dimensions, updated daily through a secure and scalable setup.
 
-- An Azure account with sufficient credits.
-- Access to an on-premises SQL Server database.
-
-### Step 1: Azure Environment Setup
-
-1. **Create Resource Group**: Set up a new resource group in Azure.
-2. **Provision Services**:
-   - Create an Azure Data Factory instance.
-   - Set up Azure Data Lake Storage with `bronze`, `silver`, and `gold` containers.
-   - Set up an Azure Databricks workspace and Synapse Analytics workspace.
-   - Configure Azure Key Vault for secret management.
-
-### Step 2: Data Ingestion
-
-1. **Set up SQL Server**: Install SQL Server and SQL Server Management Studio (SSMS). Restore the AdventureWorks database.
-2. **Ingest Data with ADF**: Create pipelines in ADF to copy data from SQL Server to the `bronze` layer in ADLS.
-
-### Step 3: Data Transformation
-
-1. **Mount Data Lake in Databricks**: Configure Databricks to access ADLS.
-2. **Transform Data**: Use Databricks notebooks to clean and aggregate the data, moving it from `bronze` to `silver` and then to `gold`.
-
-### Step 4: Data Loading and Reporting
-
-1. **Load Data into Synapse**: Set up a Synapse SQL pool and load the `gold` data for analysis.
-2. **Create Power BI Dashboard**: Connect Power BI to Synapse and create visualizations based on business requirements.
-
-### Step 5: Automation and Monitoring
-
-1. **Schedule Pipelines**: Use ADF to schedule the data pipelines to run daily.
-2. **Monitor Pipeline Runs**: Use the monitoring tools in ADF and Synapse to ensure successful pipeline execution.
-
-### Step 6: Security and Governance
-
-1. **Manage Access**: Set up role-based access control (RBAC) using Azure Entra ID (formerly Active Directory).
-
-### Step 7: End-to-End Testing
-
-1. **Trigger and Test Pipelines**: Insert new records into the SQL database and verify that the entire pipeline runs successfully, updating the Power BI dashboard.
-
-## Conclusion
 
 This project provides a robust end-to-end solution for understanding customer demographics and their impact on sales. The automated data pipeline ensures that stakeholders always have access to the most current and actionable insights.
